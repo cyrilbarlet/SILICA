@@ -430,6 +430,18 @@
 
     .artist-card:hover::after { opacity: 1; }
 
+    /* ─── TABLETTE / TOUCH : images toujours éclaircies ─── */
+    /* On cible les appareils sans souris (touch) : tablette portrait ET paysage */
+    @media (hover: none) {
+      .artist-card img {
+        opacity: 1;
+        filter: none;
+      }
+      .artist-card::before { opacity: 1; }
+      .artist-card::after  { opacity: 1; }
+      .artist-card { border-color: rgba(57,255,106,0.3); }
+    }
+
     /* ─── FOOTER ─── */
     footer {
       position: relative;
@@ -649,6 +661,27 @@
       .artist-card.mobile-active {
         border-color: rgba(57,255,106,0.3);
       }
+    }
+
+    /* ─── TABLETTE PORTRAIT : cartes artistes moins larges + toujours éclairées ─── */
+    @media (min-width: 600px) and (max-width: 900px) and (orientation: portrait) {
+      .artists-grid {
+        grid-template-columns: repeat(2, minmax(0, 260px));
+        gap: 20px;
+      }
+      .artists-section {
+        padding-left: 40px;
+        padding-right: 40px;
+      }
+      .artist-card img {
+        opacity: 1;
+        filter: none;
+      }
+      .artist-card.mobile-active img {
+        transform: none;
+      }
+      .artist-card::before { opacity: 1; }
+      .artist-card { border-color: rgba(57,255,106,0.3); }
     }
 
     /* ─── FADE IN ─── */
