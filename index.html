@@ -769,6 +769,52 @@
       from { opacity: 0; transform: translateY(10px); }
       to   { opacity: 1; transform: translateY(0); }
     }
+
+    /* ─── TERMINATE LOG (close button) ─── */
+    .hero-close-row {
+      padding-top: 14px;
+    }
+
+    .hero-close-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: crosshair;
+      color: var(--white);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      transition: color 0.25s;
+    }
+    .hero-close-btn:hover { color: var(--green); }
+    .hero-close-btn:hover .close-arrow {
+      text-shadow: 0 0 16px var(--green), 0 0 32px var(--green);
+    }
+    .hero-close-btn .close-arrow {
+      color: var(--green);
+      text-shadow: 0 0 8px var(--green);
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* ─── LANDSCAPE PHONE : grille artistes en colonne unique ─── */
+    @media (max-width: 900px) and (orientation: landscape) {
+      .artists-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+        max-width: 360px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .artist-card {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -859,6 +905,13 @@
         <span class="line">&nbsp;</span>
         <span class="line"><span class="prompt">_</span><span class="blink">█</span></span>
       </div>
+          <!-- Close button -->
+          <div class="hero-close-row" id="heroCloseRow">
+            <button class="hero-close-btn" id="heroCloseBtn">
+              <span class="close-arrow">×</span>
+              <span>terminate_log</span>
+            </button>
+          </div>
         </div><!-- /hero-expanded-inner -->
       </div><!-- /hero-expanded -->
     </div>
@@ -1083,6 +1136,33 @@
           btn.classList.add('hidden');   // bouton disparaît
           setTimeout(runTypewriter, 40);
         }
+      });
+
+      // ─── CLOSE / TERMINATE ───
+      var closeBtn = document.getElementById('heroCloseBtn');
+      closeBtn.addEventListener('click', function() {
+        // Collapse panel
+        panel.classList.remove('is-open');
+        // Hide inline span
+        inlineSpan.classList.remove('visible');
+        // Erase text
+        inlineNodes.forEach(function(n) { n.textContent = ''; });
+        bodyNodes.forEach(function(n) { n.textContent = ''; });
+        termNodes.forEach(function(n) { n.textContent = ''; });
+        // Reset terminal opacity
+        term.style.opacity = '0';
+        term.style.transition = 'none';
+        // Re-show learn_more button after transition ends
+        typed = false;
+        setTimeout(function() { btn.classList.remove('hidden'); }, 560);
+        // Scroll back above "// Transmission active" label with offset
+        setTimeout(function() {
+          var heroLabel = document.querySelector('.hero-label');
+          if (heroLabel) {
+            var targetY = heroLabel.getBoundingClientRect().top + window.pageYOffset - 80;
+            window.scrollTo({ top: targetY, behavior: 'smooth' });
+          }
+        }, 560);
       });
     })();
   </script>
