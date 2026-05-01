@@ -180,22 +180,7 @@
       opacity: 0.6;
     }
 
-    /* Scan line on photo */
-    .artist-photo-wrap::before {
-      content: '';
-      position: absolute;
-      left: 0; right: 0;
-      height: 2px;
-      background: var(--green);
-      opacity: 0.18;
-      animation: photo-scan 6s linear infinite;
-      z-index: 1;
-      pointer-events: none;
-    }
-    @keyframes photo-scan {
-      0%   { top: 0%; }
-      100% { top: 100%; }
-    }
+    /* Scan line on photo — removed */
 
     /* Right: text block */
     .artist-info {
@@ -517,7 +502,7 @@
       position: fixed;
       inset: 0;
       background: rgba(3,3,3,0.92);
-      z-index: 10000;
+      z-index: 20000;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -899,14 +884,62 @@
     .bio-expanded-inner { overflow: hidden; min-height: 0; }
     .bio-expanded.is-open { grid-template-rows: 1fr; }
 
+    .bio-close-row {
+      padding-top: 14px;
+    }
+
+    .bio-close-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: crosshair;
+      color: var(--white);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: lowercase;
+      transition: color 0.25s;
+    }
+    .bio-close-btn:hover { color: var(--green); }
+    .bio-close-btn:hover .learn-more-arrow {
+      text-shadow: 0 0 16px var(--green), 0 0 32px var(--green);
+    }
+    .bio-close-btn .learn-more-arrow {
+      color: var(--green);
+      text-shadow: 0 0 8px var(--green);
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 800px) {
       .artist-hero {
         grid-template-columns: 1fr;
-        padding: 20px 20px 40px;
+        padding: 0 0 40px;
         gap: 28px;
       }
-      .artist-photo-wrap { aspect-ratio: 1 / 1; }
+
+      /* Photo: presque toute la largeur, pas de padding latéral */
+      .artist-photo-block {
+        height: auto;
+        max-height: none;
+        min-height: unset;
+        width: 100%;
+      }
+      .artist-photo-wrap {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        max-height: 92vw;
+      }
+
+      .artist-info {
+        padding: 0 20px;
+      }
+
       .artist-stats { grid-template-columns: repeat(3, 1fr); }
       .divider { padding: 10px 20px; }
       .discography { padding: 0 20px 40px; }
@@ -915,6 +948,56 @@
       .platform-links { gap: 6px; }
       footer { padding: 30px 20px; flex-direction: column; gap: 20px; text-align: center; }
       .footer-info { text-align: center; }
+
+      /* Gallery section padding on mobile */
+      .gallery-section { padding: 0 16px; }
+
+      /* Gallery: hide arrows, full-width swipeable strip */
+      .gallery-arrow { display: none !important; }
+      .gallery-strip-wrapper { justify-content: flex-start; padding: 0; }
+      .gallery-strip {
+        width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      .gallery-strip::-webkit-scrollbar { display: none; }
+      .gallery-track {
+        /* let it scroll freely, no JS transform needed on mobile */
+        transform: none !important;
+      }
+    }
+
+    /* Landscape phone */
+    @media (max-width: 800px) and (orientation: landscape) {
+      .artist-photo-wrap {
+        aspect-ratio: unset;
+        height: 90vh;
+        max-height: 90vh;
+        width: auto;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+      .artist-photo-block {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+    /* Lightbox mobile: presque tout l'écran */
+    @media (max-width: 800px) {
+      .lightbox-inner {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        max-width: 96vw;
+        max-height: calc(100vh - 40px);
+      }
+      .lightbox-img-wrap img {
+        max-width: 94vw;
+        max-height: 80vh;
+      }
+      .lightbox-arrow { display: none; }
     }
   </style>
 </head>
@@ -978,6 +1061,13 @@
             <p>
               Actif sur les scènes underground de la simulation depuis son déploiement, DHARMA.EXE a déjà généré <strong>3 EPs autonomes</strong> et collaboré avec d'autres agents du roster SILICA//<span class="blink">_</span>
             </p>
+            <!-- Close button -->
+            <div class="bio-close-row" id="bioCloseRow">
+              <button class="bio-close-btn" id="bioCloseBtn">
+                <span class="learn-more-arrow">×</span>
+                <span>terminate_log</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1102,12 +1192,30 @@
         <div class="album-title">SAMSARA.EXE</div>
         <div class="album-tracks">5 tracks &nbsp;·&nbsp; 22 min</div>
         <div class="platform-links">
-          <a href="#" class="platform-btn spotify" title="Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg><span>Spotify</span></a>
-          <a href="#" class="platform-btn apple" title="Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg><span>Apple Music</span></a>
-          <a href="#" class="platform-btn deezer" title="Deezer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg><span>Deezer</span></a>
-          <a href="#" class="platform-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg><span>YouTube Music</span></a>
-          <a href="#" class="platform-btn tidal" title="Tidal"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg><span>Tidal</span></a>
-          <a href="#" class="platform-btn bandcamp" title="Bandcamp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg><span>Bandcamp</span></a>
+          <a href="#" class="platform-btn spotify" title="Spotify">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            <span>Spotify</span>
+          </a>
+          <a href="#" class="platform-btn apple" title="Apple Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg>
+            <span>Apple Music</span>
+          </a>
+          <a href="#" class="platform-btn deezer" title="Deezer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg>
+            <span>Deezer</span>
+          </a>
+          <a href="#" class="platform-btn youtube" title="YouTube Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg>
+            <span>YouTube Music</span>
+          </a>
+          <a href="#" class="platform-btn tidal" title="Tidal">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg>
+            <span>Tidal</span>
+          </a>
+          <a href="#" class="platform-btn bandcamp" title="Bandcamp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
+            <span>Bandcamp</span>
+          </a>
         </div>
       </div>
     </div>
@@ -1124,12 +1232,30 @@
         <div class="album-title">VOID_MANTRA_v2</div>
         <div class="album-tracks">6 tracks &nbsp;·&nbsp; 28 min</div>
         <div class="platform-links">
-          <a href="#" class="platform-btn spotify" title="Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg><span>Spotify</span></a>
-          <a href="#" class="platform-btn apple" title="Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg><span>Apple Music</span></a>
-          <a href="#" class="platform-btn deezer" title="Deezer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg><span>Deezer</span></a>
-          <a href="#" class="platform-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg><span>YouTube Music</span></a>
-          <a href="#" class="platform-btn tidal" title="Tidal"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg><span>Tidal</span></a>
-          <a href="#" class="platform-btn bandcamp" title="Bandcamp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg><span>Bandcamp</span></a>
+          <a href="#" class="platform-btn spotify" title="Spotify">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            <span>Spotify</span>
+          </a>
+          <a href="#" class="platform-btn apple" title="Apple Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg>
+            <span>Apple Music</span>
+          </a>
+          <a href="#" class="platform-btn deezer" title="Deezer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg>
+            <span>Deezer</span>
+          </a>
+          <a href="#" class="platform-btn youtube" title="YouTube Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg>
+            <span>YouTube Music</span>
+          </a>
+          <a href="#" class="platform-btn tidal" title="Tidal">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg>
+            <span>Tidal</span>
+          </a>
+          <a href="#" class="platform-btn bandcamp" title="Bandcamp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
+            <span>Bandcamp</span>
+          </a>
         </div>
       </div>
     </div>
@@ -1146,12 +1272,30 @@
         <div class="album-title">IRON DHARMA</div>
         <div class="album-tracks">11 tracks &nbsp;·&nbsp; 58 min</div>
         <div class="platform-links">
-          <a href="#" class="platform-btn spotify" title="Spotify"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg><span>Spotify</span></a>
-          <a href="#" class="platform-btn apple" title="Apple Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg><span>Apple Music</span></a>
-          <a href="#" class="platform-btn deezer" title="Deezer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg><span>Deezer</span></a>
-          <a href="#" class="platform-btn youtube" title="YouTube Music"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg><span>YouTube Music</span></a>
-          <a href="#" class="platform-btn tidal" title="Tidal"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg><span>Tidal</span></a>
-          <a href="#" class="platform-btn bandcamp" title="Bandcamp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg><span>Bandcamp</span></a>
+          <a href="#" class="platform-btn spotify" title="Spotify">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
+            <span>Spotify</span>
+          </a>
+          <a href="#" class="platform-btn apple" title="Apple Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg>
+            <span>Apple Music</span>
+          </a>
+          <a href="#" class="platform-btn deezer" title="Deezer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg>
+            <span>Deezer</span>
+          </a>
+          <a href="#" class="platform-btn youtube" title="YouTube Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg>
+            <span>YouTube Music</span>
+          </a>
+          <a href="#" class="platform-btn tidal" title="Tidal">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg>
+            <span>Tidal</span>
+          </a>
+          <a href="#" class="platform-btn bandcamp" title="Bandcamp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
+            <span>Bandcamp</span>
+          </a>
         </div>
       </div>
     </div>
@@ -1270,6 +1414,21 @@
           btn.classList.add('hidden');
           setTimeout(runTypewriter, 40);
         }
+      });
+
+      // ─── CLOSE / TERMINATE ───
+      var closeBtn = document.getElementById('bioCloseBtn');
+      closeBtn.addEventListener('click', function() {
+        // Collapse panel
+        panel.classList.remove('is-open');
+        // Hide inline span
+        inlineSpan.classList.remove('visible');
+        // Erase text
+        inlineNodes.forEach(function(n) { n.textContent = ''; });
+        bodyNodes.forEach(function(n) { n.textContent = ''; });
+        // Re-show learn_more button after transition ends
+        typed = false;
+        setTimeout(function() { btn.classList.remove('hidden'); }, 560);
       });
     })();
   </script>
@@ -1413,6 +1572,8 @@
       updateArrows();
     });
 
+    function isMobile() { return window.innerWidth <= 800; }
+
     updateArrows();
     window.addEventListener('load', () => { sizeStrip(); updateArrows(); });
     window.addEventListener('resize', () => { sizeStrip(); updateArrows(); });
@@ -1426,6 +1587,36 @@
     const lbPrev = document.getElementById('lb-prev');
     const lbNext = document.getElementById('lb-next');
     const lbClose = document.getElementById('lb-close');
+
+    // Touch swipe support for gallery strip on mobile
+    let touchStartX = 0;
+    let touchStartScrollLeft = 0;
+    const stripEl = document.getElementById('gallery-strip');
+
+    stripEl.addEventListener('touchstart', (e) => {
+      if (!isMobile()) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartScrollLeft = stripEl.scrollLeft;
+    }, { passive: true });
+
+    stripEl.addEventListener('touchmove', (e) => {
+      if (!isMobile()) return;
+      const dx = touchStartX - e.touches[0].clientX;
+      stripEl.scrollLeft = touchStartScrollLeft + dx;
+    }, { passive: true });
+
+    // Lightbox swipe (mobile)
+    let lbTouchStartX = 0;
+    lightbox.addEventListener('touchstart', (e) => {
+      lbTouchStartX = e.touches[0].clientX;
+    }, { passive: true });
+    lightbox.addEventListener('touchend', (e) => {
+      const dx = lbTouchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 40) {
+        if (dx > 0 && currentLbIndex < GALLERY_IMAGES.length - 1) { currentLbIndex++; updateLightbox(); }
+        if (dx < 0 && currentLbIndex > 0) { currentLbIndex--; updateLightbox(); }
+      }
+    }, { passive: true });
 
     function openLightbox(index) {
       currentLbIndex = index;
