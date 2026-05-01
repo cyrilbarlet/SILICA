@@ -419,7 +419,7 @@
     .gallery-strip {
       overflow: hidden;
       position: relative;
-      height: 120px;
+      height: 160px;
     }
 
     .gallery-track {
@@ -431,7 +431,7 @@
     .gallery-thumb {
       flex-shrink: 0;
       width: 160px;
-      height: 120px;
+      height: 160px;
       position: relative;
       overflow: hidden;
       border: 1px solid rgba(57,255,106,0.1);
@@ -447,28 +447,18 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       display: block;
       opacity: 0.85;
       transition: opacity 0.2s, transform 0.3s;
+      image-rendering: auto;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      transform: translateZ(0) scale(1);
     }
     .gallery-thumb:hover img {
       opacity: 1;
       transform: scale(1.04);
-    }
-    /* Scan effect on thumbs */
-    .gallery-thumb::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 3px,
-        rgba(57,255,106,0.025) 3px,
-        rgba(57,255,106,0.025) 4px
-      );
-      pointer-events: none;
-      z-index: 1;
     }
     /* Corner brackets on thumbs */
     .gallery-thumb::after {
@@ -744,6 +734,126 @@
       border: 1px solid rgba(57,255,106,0.12);
       position: relative;
       overflow: hidden;
+      cursor: crosshair;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .album-cover-inner:hover {
+      border-color: rgba(57,255,106,0.5);
+      box-shadow: 0 0 16px rgba(57,255,106,0.15);
+    }
+    .album-cover-inner:hover img {
+      opacity: 0.9;
+      transform: scale(1.03);
+    }
+    .album-cover-inner img {
+      transition: opacity 0.2s, transform 0.3s;
+    }
+
+    /* ─── ALBUM LIGHTBOX ─── */
+    .album-lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3,3,3,0.92);
+      z-index: 20000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      backdrop-filter: blur(4px);
+    }
+    .album-lightbox-overlay.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .album-lightbox-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(57,255,106,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(57,255,106,0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+    .album-lightbox-inner {
+      position: relative;
+      display: flex;
+      align-items: center;
+      max-width: calc(100vw - 80px);
+      max-height: calc(100vh - 80px);
+    }
+    .album-lightbox-img-wrap {
+      position: relative;
+      border: 1px solid rgba(57,255,106,0.2);
+      overflow: hidden;
+      background: #050505;
+    }
+    .album-lightbox-img-wrap img {
+      display: block;
+      max-width: calc(100vw - 120px);
+      max-height: calc(100vh - 120px);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .album-lightbox-img-wrap::before {
+      content: '';
+      position: absolute;
+      left: 0; right: 0;
+      height: 2px;
+      background: var(--green);
+      opacity: 0.08;
+      animation: photo-scan 8s linear infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .alb-lb-corner { position: absolute; width: 18px; height: 18px; z-index: 2; pointer-events: none; }
+    .alb-lb-corner.tl { top: 10px; left: 10px; border-top: 1px solid rgba(57,255,106,0.6); border-left: 1px solid rgba(57,255,106,0.6); }
+    .alb-lb-corner.br { bottom: 10px; right: 10px; border-bottom: 1px solid rgba(57,255,106,0.6); border-right: 1px solid rgba(57,255,106,0.6); }
+    .album-lightbox-label {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--green);
+      opacity: 0.5;
+      z-index: 3;
+      pointer-events: none;
+    }
+    .album-lightbox-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      width: 32px;
+      height: 32px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(57,255,106,0.2);
+      color: rgba(57,255,106,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: crosshair;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      transition: border-color 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    .album-lightbox-close:hover {
+      border-color: var(--green);
+      color: var(--green);
+      box-shadow: 0 0 12px rgba(57,255,106,0.2);
+    }
+    @media (max-width: 800px) {
+      .album-lightbox-inner {
+        max-width: 96vw;
+        max-height: calc(100vh - 40px);
+      }
+      .album-lightbox-img-wrap img {
+        max-width: 94vw;
+        max-height: 80vh;
+      }
     }
 
     .album-cover-inner img {
@@ -920,6 +1030,19 @@
     }
 
 
+    /* ─── FADE IN ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .topbar          { animation: fadeUp 0.7s ease both; }
+    .artist-hero     { animation: fadeUp 0.7s ease both; animation-delay: 0.1s; }
+    .gallery-section { animation: fadeUp 0.7s ease both; animation-delay: 0.2s; }
+    .divider         { animation: fadeUp 0.7s ease both; animation-delay: 0.3s; }
+    .discography     { animation: fadeUp 0.7s ease both; animation-delay: 0.35s; }
+    footer           { animation: fadeUp 0.7s ease both; animation-delay: 0.4s; }
+
     /* ─── RESPONSIVE ─── */
     @media (max-width: 800px) {
       .artist-hero {
@@ -952,7 +1075,7 @@
       .artist-stats { grid-template-columns: repeat(3, 1fr); }
       .divider { padding: 10px 20px; }
       .discography { padding: 0 20px 40px; }
-      .album-row { grid-template-columns: 72px 1fr; gap: 16px; padding: 16px; }
+      .album-row { grid-template-columns: 72px 1fr; gap: 16px; padding: 16px; align-items: start; }
       .album-cover { width: 72px; height: 72px; }
       .platform-links { gap: 6px; }
       footer { padding: 30px 20px; flex-direction: column; gap: 20px; text-align: center; }
@@ -966,7 +1089,7 @@
       .gallery-strip-wrapper { justify-content: flex-start; padding: 0; }
       .gallery-strip {
         width: 100% !important;
-        height: 120px !important;
+        height: 160px !important;
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
@@ -983,7 +1106,7 @@
       .gallery-arrow { display: none !important; }
       .gallery-strip {
         width: 100% !important;
-        height: 120px !important;
+        height: 160px !important;
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
@@ -1033,6 +1156,10 @@
         width: 40%;
         z-index: 5;
         cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        outline: none;
       }
       .lb-tap-prev { left: 0; }
       .lb-tap-next { right: 0; }
@@ -1183,7 +1310,7 @@
     <!-- Album 1 -->
     <div class="album-row">
       <div class="album-cover">
-        <div class="album-cover-inner">
+        <div class="album-cover-inner" data-lb-src="Pochette1.png" data-lb-label="DISSOLUTION PROTOCOL // 2024">
           <img src="Pochette1.png" alt="DISSOLUTION PROTOCOL" />
         </div>
       </div>
@@ -1223,7 +1350,7 @@
     <!-- Album 2 -->
     <div class="album-row">
       <div class="album-cover">
-        <div class="album-cover-inner">
+        <div class="album-cover-inner" data-lb-src="Pochette2.png" data-lb-label="SAMSARA.EXE // 2024">
           <img src="Pochette2.png" alt="SAMSARA.EXE" />
         </div>
       </div>
@@ -1263,7 +1390,7 @@
     <!-- Album 3 -->
     <div class="album-row">
       <div class="album-cover">
-        <div class="album-cover-inner">
+        <div class="album-cover-inner" data-lb-src="Pochette3.png" data-lb-label="VOID_MANTRA_v2 // 2025">
           <img src="Pochette3.png" alt="VOID_MANTRA_v2" />
         </div>
       </div>
@@ -1303,7 +1430,7 @@
     <!-- Album 4 -->
     <div class="album-row">
       <div class="album-cover">
-        <div class="album-cover-inner">
+        <div class="album-cover-inner" data-lb-src="Pochette4.png" data-lb-label="IRON DHARMA // 2026">
           <img src="Pochette4.png" alt="IRON DHARMA" />
         </div>
       </div>
@@ -1341,6 +1468,19 @@
     </div>
 
   </section>
+
+  <!-- ═══ ALBUM LIGHTBOX ═══ -->
+  <div class="album-lightbox-overlay" id="album-lightbox" role="dialog" aria-modal="true">
+    <div class="album-lightbox-inner">
+      <div class="album-lightbox-img-wrap" id="alb-lb-img-wrap">
+        <div class="alb-lb-corner tl"></div>
+        <div class="alb-lb-corner br"></div>
+        <img id="alb-lb-img" src="" alt="" />
+        <div class="album-lightbox-label" id="alb-lb-label"></div>
+        <button class="album-lightbox-close" id="alb-lb-close" aria-label="Close">✕</button>
+      </div>
+    </div>
+  </div>
 
   <!-- ═══ FOOTER ═══ -->
   <footer>
@@ -1769,6 +1909,45 @@
         else navigateLightbox(-1);
       }
     }, { passive: true });
+  </script>
+  <script>
+    // ─── ALBUM COVER LIGHTBOX ───
+    const albumLightbox = document.getElementById('album-lightbox');
+    const albLbImg      = document.getElementById('alb-lb-img');
+    const albLbLabel    = document.getElementById('alb-lb-label');
+    const albLbClose    = document.getElementById('alb-lb-close');
+
+    function openAlbumLightbox(src, label) {
+      albLbImg.src   = src;
+      albLbImg.alt   = label;
+      albLbLabel.textContent = label;
+      albumLightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAlbumLightbox() {
+      albumLightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Click on any album cover
+    document.querySelectorAll('.album-cover-inner[data-lb-src]').forEach(function(el) {
+      el.addEventListener('click', function() {
+        openAlbumLightbox(el.dataset.lbSrc, el.dataset.lbLabel);
+      });
+    });
+
+    albLbClose.addEventListener('click', closeAlbumLightbox);
+
+    // Close on overlay click (outside image)
+    albumLightbox.addEventListener('click', function(e) {
+      if (e.target === albumLightbox) closeAlbumLightbox();
+    });
+
+    // Keyboard: Escape
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && albumLightbox.classList.contains('active')) closeAlbumLightbox();
+    });
   </script>
 </body>
 </html>
