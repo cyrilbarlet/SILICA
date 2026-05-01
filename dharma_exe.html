@@ -419,6 +419,7 @@
     .gallery-strip {
       overflow: hidden;
       position: relative;
+      height: 120px;
     }
 
     .gallery-track {
@@ -873,7 +874,6 @@
 
     .learn-more-inline {
       display: none;
-      font-size: 0.8rem;
       line-height: 2;
       color: #8c8c8c;
     }
@@ -1576,10 +1576,12 @@
     }
 
     function sizeStrip() {
+      if (isMobile()) { strip.style.width = ''; return; }
       // Measure available space: wrapper width minus both arrow buttons
       const wrapperW = strip.parentElement.offsetWidth - prevBtn.offsetWidth - nextBtn.offsetWidth;
       const maxFit = Math.floor(wrapperW / STEP);
       const count = Math.min(maxFit, GALLERY_IMAGES.length);
+      if (count <= 0) return;
       const exactW = count * THUMB_W + (count - 1) * THUMB_GAP;
       strip.style.width = exactW + 'px';
       // Hide arrows if all images fit at once
