@@ -46,7 +46,7 @@
 
   header { position: relative; z-index: 10; padding: 60px 60px 0; display: flex; flex-direction: column; align-items: center; text-align: center; }
   .header-socials { position: absolute; top: 60px; right: 60px; display: flex; gap: 16px; align-items: center; }
-  .header-socials a { color: rgba(240,240,240,0.3); transition: color 0.2s; }
+  .header-socials a { color: #8c8c8c; transition: color 0.2s; }
   .header-socials a:hover { color: var(--green); }
   @media (max-width: 800px) { .header-socials { top: 20px; right: 20px; } }
   .logo { font-family: 'EMYRLA', monospace; font-weight: 400; font-size: clamp(3rem, 8vw, 5.5rem); color: var(--white); letter-spacing: -0.02em; line-height: 1; text-decoration: none; position: relative; }
@@ -57,8 +57,8 @@
   .logo.glitch-active::after { animation: glitch 0.25s steps(1) infinite; opacity: 0.45; color: var(--blue); }
   .logo-sub { font-family: 'Share Tech Mono', monospace; font-size: clamp(0.9rem, 1.9vw, 1.3rem); color: var(--green); letter-spacing: 0.3em; margin-top: 8px; opacity: 0.8; }
   
-  nav { position: relative; z-index: 10; padding: 30px 60px; display: flex; justify-content: center; gap: 40px; border-bottom: 1px solid rgba(57, 255, 106, 0.15); }
-  nav a { font-size: 0.75rem; color: var(--white); text-decoration: none; letter-spacing: 0.2em; text-transform: uppercase; opacity: 0.5; }
+  nav { position: relative; z-index: 10; padding: 30px 60px; display: flex; justify-content: center; gap: 40px; border-bottom: 1px solid rgba(57, 255, 106, 0.25); }
+  nav a { font-size: 0.75rem; color: #a0a0a0; text-decoration: none; letter-spacing: 0.2em; text-transform: uppercase; opacity: 1; }
   nav a.active { opacity: 1; color: var(--green); text-shadow: 0 0 10px var(--green); }
 
   /* Contact Terminal */
@@ -70,7 +70,7 @@
   }
 
   .terminal-box {
-    border: 1px solid rgba(57, 255, 106, 0.2);
+    border: 1px solid rgba(57, 255, 106, 0.25);
     background: rgba(0,0,0,0.6);
     padding: 30px;
     position: relative;
@@ -90,8 +90,8 @@
     100% { top: 100%; }
   }
   .terminal-header {
-    font-size: 0.65rem; color: rgba(57,255,106,0.4);
-    letter-spacing: 0.2em; border-bottom: 1px solid rgba(57,255,106,0.1);
+    font-size: 0.65rem; color: #8c8c8c;
+    letter-spacing: 0.2em; border-bottom: 1px solid rgba(57,255,106,0.25);
     padding-bottom: 15px; margin-bottom: 25px;
   }
 
@@ -122,7 +122,7 @@
 
   /* Right Side: Log Console */
   .console-log {
-    font-size: 0.8rem; color: rgba(57,255,106,0.7);
+    font-size: 0.8rem; color: #2ecc57;
     line-height: 1.8;
   }
   .log-line { margin-bottom: 8px; display: flex; align-items: flex-start; }
@@ -145,11 +145,11 @@
   nav                { animation-delay: 0.1s; }
   .contact-container { animation-delay: 0.2s; }
 
-  footer { position: relative; z-index: 10; border-top: 1px solid rgba(57,255,106,0.1); padding: 40px 60px; display: flex; justify-content: space-between; align-items: center; }
+  footer { position: relative; z-index: 10; border-top: 1px solid rgba(57,255,106,0.25); padding: 40px 60px; display: flex; justify-content: space-between; align-items: center; }
   .footer-logo { font-family: 'EMYRLA', monospace; font-weight: 400; font-size: 1rem; }
   .footer-logo .slash { color: var(--green); }
-  .footer-info { font-size: 0.65rem; color: rgba(240,240,240,0.2); letter-spacing: 0.15em; text-align: right; line-height: 1.8; }
-  .footer-info a { color: rgba(57,255,106,0.4); text-decoration: none; }
+  .footer-info { font-size: 0.65rem; color: #8c8c8c; letter-spacing: 0.15em; text-align: right; line-height: 1.8; }
+  .footer-info a { color: #2ecc57; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -215,19 +215,19 @@
       <a href="#">LEGAL NOTICE</a> &nbsp;·&nbsp; <a href="#">CONTACT</a><br>
       <div style="margin-top:10px; display:flex; gap:16px; justify-content:flex-end; align-items:center;">
         <!-- X / Twitter -->
-        <a href="#" title="X" style="color:rgba(240,240,240,0.3); transition:color 0.2s;" onmouseover="this.style.color='#39ff6a'" onmouseout="this.style.color='rgba(240,240,240,0.3)'">
+        <a href="#" title="X" style="color:#8c8c8c; transition:color 0.2s;" onmouseover="this.style.color='#39ff6a'" onmouseout="this.style.color='#8c8c8c'">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.63 5.905-5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         </a>
         <!-- Instagram -->
-        <a href="#" title="Instagram" style="color:rgba(240,240,240,0.3); transition:color 0.2s;" onmouseover="this.style.color='#39ff6a'" onmouseout="this.style.color='rgba(240,240,240,0.3)'">
+        <a href="#" title="Instagram" style="color:#8c8c8c; transition:color 0.2s;" onmouseover="this.style.color='#39ff6a'" onmouseout="this.style.color='#8c8c8c'">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
         <!-- TikTok -->
-        <a href="#" title="TikTok" style="color:rgba(240,240,240,0.3); transition:color 0.2s;" onmouseover="this.style.color='#39ff6a'" onmouseout="this.style.color='rgba(240,240,240,0.3)'">
+        <a href="#" title="TikTok" style="color:#8c8c8c; transition:color 0.2s;" onmouseover="this.style.color='#39ff6a'" onmouseout="this.style.color='#8c8c8c'">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.78 1.52V6.76a4.85 4.85 0 01-1.01-.07z"/></svg>
         </a>
         <!-- Facebook -->
-        <a href="#" title="Facebook" style="color:rgba(240,240,240,0.3); transition:color 0.2s;" onmouseover="this.style.color='#39ff6a'" onmouseout="this.style.color='rgba(240,240,240,0.3)'">
+        <a href="#" title="Facebook" style="color:#8c8c8c; transition:color 0.2s;" onmouseover="this.style.color='#39ff6a'" onmouseout="this.style.color='#8c8c8c'">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
       </div>
