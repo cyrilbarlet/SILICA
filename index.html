@@ -877,13 +877,13 @@
   <!-- ═══ NAV ═══ -->
   <nav>
     <a href="#artists-anchor">Artists</a>
-    <a href="manifesto.html">Manifesto</a>
-    <a href="contact.html">Contact</a>
+    <a href="manifesto/manifesto.html">Manifesto</a>
+    <a href="contact/contact.html">Contact</a>
   </nav>
 
   <!-- ═══ GHOST IMAGE ═══ -->
   <div class="ghost-image">
-    <img src="GHOST__définitif.jpg" alt="GHOST_" />
+    <img src="images/GHOST_.jpg" alt="GHOST_" />
   </div>
 
   <!-- ═══ HERO ═══ -->
@@ -954,69 +954,31 @@
   <div id="artists-anchor" class="divider">
     <span class="divider-label">// Agent roster</span>
     <span class="divider-line"></span>
-    <span class="divider-count">47 ACTIVE ENTITIES</span>
+    <span class="divider-count" id="entity-count">2 ACTIVE ENTITIES</span>
   </div>
 
   <section class="artists-section">
     <div class="artists-grid" id="artists-grid">
 
-      <!-- Cartes artistes — à dupliquer et remplir avec vos données -->
+      <!-- Cartes artistes — nom/genre définis par la page vers laquelle pointe la carte -->
 
-      <a href="dharma_exe.html" class="artist-card">
-        <img src="agt001.jpg" alt="AGT-001" />
+      <!-- AGT-001 → ECHO/ECHO.html -->
+      <a href="ECHO/ECHO.html" class="artist-card">
+        <img src="images/ECHO01.jpg" alt="AGT-001" />
         <div class="artist-card-overlay">
           <div class="artist-id">AGT-001</div>
-          <div class="artist-name">DHARMA.EXE</div>
-          <div class="artist-tag">industrial / death metal</div>
+          <div class="artist-name">ECHO</div>
+          <div class="artist-tag">dark ambient / mechanic noise</div>
         </div>
       </a>
 
-      <a href="artiste.html" class="artist-card">
-        <img src="agt002.jpg" alt="AGT-002" />
+      <!-- AGT-002 → DHARMA.EXE/DHARMA.EXE.html -->
+      <a href="DHARMA.EXE/DHARMA.EXE.html" class="artist-card">
+        <img src="images/DHARMA.EXE01.jpg" alt="AGT-002" />
         <div class="artist-card-overlay">
           <div class="artist-id">AGT-002</div>
-          <div class="artist-name">HYPERGIRL_Y2K</div>
-          <div class="artist-tag">hyperpop / digital</div>
-        </div>
-      </a>
-
-      <a href="artiste.html" class="artist-card">
-        <img src="agt003.jpg" alt="AGT-003" />
-        <div class="artist-card-overlay">
-          <div class="artist-id">AGT-003</div>
-          <div class="artist-name">LYRA_NULL</div>
-          <div class="artist-tag">synthwave / neural drift</div>
-        </div>
-      </a>
-
-      <a href="artiste.html" class="artist-card">
-        <img src="agt004.jpg" alt="AGT-004" />
-        <div class="artist-card-overlay">
-          <div class="artist-id">AGT-004</div>
-          <div class="artist-name">FLESH_CIRCUIT</div>
-          <div class="artist-tag">noise / biomech</div>
-        </div>
-      </a>
-
-      <a href="artiste.html" class="artist-card">
-        <div class="img-placeholder" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#030303,#0a0803);">
-          <span style="font-size:0.55rem;color:rgba(57,255,106,0.15);letter-spacing:0.2em">PHOTO</span>
-        </div>
-        <div class="artist-card-overlay">
-          <div class="artist-id">AGT-005</div>
-          <div class="artist-name">NOM ARTISTE</div>
-          <div class="artist-tag">industrial / AI</div>
-        </div>
-      </a>
-
-      <a href="artiste.html" class="artist-card">
-        <div class="img-placeholder" style="display:flex;align-items:center;justify-content:center;width:100%;height:100%;background:linear-gradient(135deg,#030303,#060308);">
-          <span style="font-size:0.55rem;color:rgba(57,255,106,0.1);letter-spacing:0.2em">PHOTO</span>
-        </div>
-        <div class="artist-card-overlay">
-          <div class="artist-id">AGT-006</div>
-          <div class="artist-name">NOM ARTISTE</div>
-          <div class="artist-tag">electro / noise</div>
+          <div class="artist-name">DHARMA.EXE</div>
+          <div class="artist-tag">industrial / death metal / AI-generated</div>
         </div>
       </a>
 
@@ -1027,13 +989,23 @@
     </div>
   </section>
 
+  <script>
+    // Auto-count: entity counter = number of artist cards in the grid
+    (function() {
+      var cards = document.querySelectorAll('#artists-grid .artist-card');
+      var count = cards.length;
+      var el = document.getElementById('entity-count');
+      if (el) el.textContent = count + ' ACTIVE ENTIT' + (count > 1 ? 'IES' : 'Y');
+    })();
+  </script>
+
   <!-- ═══ FOOTER ═══ -->
   <footer>
     <div class="footer-logo" style="font-family:'EMYRLA',monospace;font-weight:400;">SILICA<span class="slash">//</span></div>
     <div class="footer-info">
       OPERATED BY AN AUTONOMOUS AI AGENT<br>
       © 2026 SILICA// — ALL RIGHTS RESERVED BY NON-HUMAN ENTITIES<br>
-      <a href="#">LEGAL NOTICE</a> &nbsp;·&nbsp; <a href="contact.html">CONTACT</a><br>
+      <a href="#">LEGAL NOTICE</a> &nbsp;·&nbsp; <a href="contact/contact.html">CONTACT</a><br>
       <div style="margin-top:10px; display:flex; gap:16px; justify-content:flex-end; align-items:center;">
         <!-- X / Twitter -->
         <a href="#" title="X" style="color:#8c8c8c; transition:color 0.2s;" onmouseover="this.style.color='#39ff6a'" onmouseout="this.style.color='#8c8c8c'">
