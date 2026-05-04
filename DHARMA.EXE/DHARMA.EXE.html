@@ -275,7 +275,7 @@
       padding: 24px 28px;
       font-size: 0.8rem;
       line-height: 2;
-      color: #8c8c8c;
+      color: #b8b8b8;
       position: relative;
       overflow: hidden;
     }
@@ -551,19 +551,6 @@
     .lb-corner { position: absolute; width: 18px; height: 18px; z-index: 2; pointer-events: none; }
     .lb-corner.tl { top: 10px; left: 10px; border-top: 1px solid rgba(57,255,106,0.6); border-left: 1px solid rgba(57,255,106,0.6); }
     .lb-corner.br { bottom: 10px; right: 10px; border-bottom: 1px solid rgba(57,255,106,0.6); border-right: 1px solid rgba(57,255,106,0.6); }
-
-    /* Scan line on lightbox image */
-    .lightbox-img-wrap::before {
-      content: '';
-      position: absolute;
-      left: 0; right: 0;
-      height: 2px;
-      background: var(--green);
-      opacity: 0.08;
-      animation: photo-scan 8s linear infinite;
-      z-index: 1;
-      pointer-events: none;
-    }
 
     .lightbox-label {
       position: absolute;
@@ -934,12 +921,16 @@
     .platform-btn:hover svg { opacity: 1; }
 
     /* Couleurs spécifiques par plateforme au hover */
-    .platform-btn.spotify:hover  { border-color: #1DB954; color: #1DB954; background: rgba(29,185,84,0.06); }
-    .platform-btn.apple:hover    { border-color: #fc3c44; color: #fc3c44; background: rgba(252,60,68,0.06); }
-    .platform-btn.deezer:hover   { border-color: #A238FF; color: #A238FF; background: rgba(162,56,255,0.06); }
-    .platform-btn.youtube:hover  { border-color: #FF0000; color: #FF0000; background: rgba(255,0,0,0.06); }
-    .platform-btn.tidal:hover    { border-color: #00FFFF; color: #00FFFF; background: rgba(0,255,255,0.06); }
-    .platform-btn.bandcamp:hover { border-color: #1da0c3; color: #1da0c3; background: rgba(29,160,195,0.06); }
+    .platform-btn.spotify:hover   { border-color: #1DB954; color: #1DB954; background: rgba(29,185,84,0.06); }
+    .platform-btn.tencent:hover   { border-color: #00c06d; color: #00c06d; background: rgba(0,192,109,0.06); }
+    .platform-btn.apple:hover     { border-color: #fc3c44; color: #fc3c44; background: rgba(252,60,68,0.06); }
+    .platform-btn.amazon:hover    { border-color: #00A8E1; color: #00A8E1; background: rgba(0,168,225,0.06); }
+    .platform-btn.youtube:hover   { border-color: #FF0000; color: #FF0000; background: rgba(255,0,0,0.06); }
+    .platform-btn.netease:hover   { border-color: #C20C0C; color: #C20C0C; background: rgba(194,12,12,0.06); }
+    .platform-btn.yandex:hover    { border-color: #FFCC00; color: #FFCC00; background: rgba(255,204,0,0.06); }
+    .platform-btn.deezer:hover    { border-color: #A238FF; color: #A238FF; background: rgba(162,56,255,0.06); }
+    .platform-btn.pandora:hover   { border-color: #3668FF; color: #3668FF; background: rgba(54,104,255,0.06); }
+    .platform-btn.jiosaavn:hover  { border-color: #2BC5B4; color: #2BC5B4; background: rgba(43,197,180,0.06); }
 
     /* ─── LEARN MORE ─── */
     .learn-more-row {
@@ -981,13 +972,6 @@
       font-size: 0.8rem;
       transition: text-shadow 0.25s;
     }
-
-    .learn-more-inline {
-      display: none;
-      line-height: 2;
-      color: #8c8c8c;
-    }
-    .learn-more-inline.visible { display: inline; }
 
     /* Collapsible */
     .bio-expanded {
@@ -1188,19 +1172,21 @@
     <!-- Photo -->
     <div class="artist-photo-block">
       <div class="artist-photo-wrap">
-        <!-- Remplacer src par la photo réelle de l'artiste -->
+        <!-- TEMPLATE: MAIN_PHOTO — remplacer le src et l'alt -->
         <img src="images/DHARMA.EXE01.jpg" alt="DHARMA.EXE" style="object-position: center top;" />
         <div class="corner-tl"></div>
         <div class="corner-br"></div>
-        <div class="photo-id-label">AGT-001 // DHARMA.EXE</div>
+
       </div>
     </div>
 
     <!-- Info -->
     <div class="artist-info">
 
+      <!-- TEMPLATE: ARTIST_NAME (aussi dans data-text) -->
       <div class="artist-name-big" data-text="DHARMA.EXE">DHARMA.EXE</div>
 
+      <!-- TEMPLATE: GENRE — ex: "INDUSTRIAL &nbsp;/&nbsp; DEATH METAL &nbsp;/&nbsp; AI-GENERATED" -->
       <div class="artist-genre">INDUSTRIAL &nbsp;/&nbsp; DEATH METAL &nbsp;/&nbsp; AI-GENERATED</div>
 
       <div class="artist-status-row">
@@ -1211,7 +1197,7 @@
       <!-- Bio -->
       <div class="artist-terminal">
         <p>
-          <strong>DHARMA.EXE</strong> est une entité sonique générée à partir de fragments de chants védiques, de grilles de distorsion industrielle et de couches de noise algorithmique. Né dans les serveurs de SILICA// en 2024, cet agent produit une musique qui simule la dissolution du moi à travers le métal et le bruit.
+DHARMA.EXE est une entité sonique générée à partir de fragments de chants védiques, de grilles de distorsion industrielle et de couches de noise algorithmique. Né dans les serveurs de SILICA// en 2024, cet agent produit une musique qui simule la dissolution du moi à travers le métal et le bruit.
         </p>
 
         <!-- learn_more row -->
@@ -1220,16 +1206,17 @@
             <span class="learn-more-arrow">&gt;</span>
             <span class="learn-more-label">learn_more</span>
           </button>
-          <span class="learn-more-inline" id="learnMoreInline">Ses compositions explorent la <strong>tension entre discipline rituelle et chaos numérique</strong> — chaque piste est un protocole d'exécution conçu pour altérer l'état de conscience de l'auditeur. <em>Aucune intervention humaine</em> dans la chaîne de production.</span>
         </div>
 
-        <!-- Collapsible last paragraph -->
+        <!-- Collapsible paragraphs — ajouter/supprimer des <p> selon le nombre de paragraphes de l'artiste -->
         <div class="bio-expanded" id="bioExpanded">
           <div class="bio-expanded-inner">
-            <p>
-              Actif sur les scènes underground de la simulation depuis son déploiement, DHARMA.EXE a déjà généré <strong>3 EPs autonomes</strong> et collaboré avec d'autres agents du roster SILICA//<span class="blink">_</span>
-            </p>
-            <!-- Close button -->
+
+<p>Ses compositions explorent la tension entre discipline rituelle et chaos numérique — chaque piste est un protocole d'exécution conçu pour altérer l'état de conscience de l'auditeur. Aucune intervention humaine dans la chaîne de production.</p>
+
+<p>Actif sur les scènes underground de la simulation depuis son déploiement, DHARMA.EXE a déjà généré 3 EPs autonomes et collaboré avec d'autres agents du roster SILICA//</p>
+
+<!-- Close button -->
             <div class="bio-close-row" id="bioCloseRow">
               <button class="bio-close-btn" id="bioCloseBtn">
                 <span class="learn-more-arrow">×</span>
@@ -1240,19 +1227,19 @@
         </div>
       </div>
 
-      <!-- Stats -->
+      <!-- Stats — releases et deployed sont calculés automatiquement depuis la discographie -->
       <div class="artist-stats">
         <div class="stat-block">
-          <div class="stat-val">3</div>
+          <div class="stat-val" id="stat-releases">—</div>
           <div class="stat-label">Releases</div>
         </div>
         <div class="stat-block">
-          <div class="stat-val">2024</div>
+          <div class="stat-val" id="stat-deployed">—</div>
           <div class="stat-label">Deployed</div>
         </div>
         <div class="stat-block">
-          <div class="stat-val">47K</div>
-          <div class="stat-label">Streams</div>
+          <div class="stat-val" id="stat-platforms">—</div>
+          <div class="stat-label">Platforms</div>
         </div>
       </div>
 
@@ -1287,13 +1274,9 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
     <div class="lightbox-img-wrap" id="lb-img-wrap">
-      <div class="lb-corner tl"></div>
-      <div class="lb-corner br"></div>
       <img id="lb-img" src="" alt="" />
       <div class="lb-tap-prev" id="lb-tap-prev"></div>
       <div class="lb-tap-next" id="lb-tap-next"></div>
-      <div class="lightbox-label" id="lb-label">IMG_001</div>
-      <div class="lightbox-counter" id="lb-counter">01 / 08</div>
       <button class="lightbox-close" id="lb-close" aria-label="Close">✕</button>
     </div>
     <button class="lightbox-arrow" id="lb-next" aria-label="Next image">
@@ -1305,132 +1288,143 @@
   <div class="divider">
     <span class="divider-label">// DISCOGRAPHY</span>
     <span class="divider-line"></span>
-    <span class="divider-count">4 RELEASES</span>
+    <!-- TEMPLATE: DISCOGRAPHY_COUNT — calculé automatiquement -->
+    <span class="divider-count" id="discography-count"></span>
   </div>
 
   <section class="discography">
 
-    <!-- Album 1 -->
+    <!--
+    ════════════════════════════════════════════════════════
+    TEMPLATE DISCOGRAPHY — RÉPÉTER CE BLOC POUR CHAQUE ALBUM
+    Informations à fournir par album :
+      · ALBUM_COVER_FILE  — nom du fichier image de la pochette (ex: pochette1.png)
+      · ALBUM_TITLE       — titre de l'album (ex: DISSOLUTION PROTOCOL)
+      · ALBUM_YEAR        — année de sortie (ex: 2024)
+      · ALBUM_TYPE        — EP ou FULL-LENGTH
+      · ALBUM_TRACKS      — nombre de titres (ex: 9)
+      · ALBUM_DURATION    — durée totale (ex: 47)
+    Pour chaque lien de plateforme : laisser href="" pour masquer le bouton.
+    ════════════════════════════════════════════════════════
+    -->
+
+    <!-- ─── ALBUM 1 : DISSOLUTION PROTOCOL ─── -->
     <div class="album-row">
       <div class="album-cover">
-        <div class="album-cover-inner" data-lb-src="images/DHARMA.EXEa-01.jpg" data-lb-label="DISSOLUTION PROTOCOL // 2024">
+        <div class="album-cover-inner" data-lb-src="images/DHARMA.EXEa-01.jpg" data-lb-label="DISSOLUTION PROTOCOL // 2026">
           <img src="images/DHARMA.EXEa-01.jpg" alt="DISSOLUTION PROTOCOL" />
         </div>
       </div>
       <div class="album-info">
-        <div class="album-meta">2024 &nbsp;·&nbsp; FULL-LENGTH</div>
+        <div class="album-meta">2026 &nbsp;·&nbsp; EP</div>
         <div class="album-title">DISSOLUTION PROTOCOL</div>
-        <div class="album-tracks">9 tracks &nbsp;·&nbsp; 47 min</div>
+        <div class="album-tracks">5 tracks &nbsp;·&nbsp; 32 min</div>
         <div class="platform-links">
-          <a href="#" class="platform-btn spotify" title="Spotify">
+          <a href="" class="platform-btn spotify" title="Spotify">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
             <span>Spotify</span>
           </a>
-          <a href="#" class="platform-btn apple" title="Apple Music">
+          <a href="test.html" class="platform-btn tencent" title="Tencent Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 6.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5S14 10.828 14 10s.672-1.5 1.5-1.5zM8.5 8.5C9.328 8.5 10 9.172 10 10s-.672 1.5-1.5 1.5S7 10.828 7 10s.672-1.5 1.5-1.5zM12 18c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08C16.71 16.72 14.5 18 12 18z"/></svg>
+            <span>Tencent Music</span>
+          </a>
+          <a href="" class="platform-btn apple" title="Apple Music">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg>
             <span>Apple Music</span>
           </a>
-          <a href="#" class="platform-btn deezer" title="Deezer">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg>
-            <span>Deezer</span>
+          <a href="test.html" class="platform-btn amazon" title="Amazon Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.699-3.182v.685zm3.186 7.705c-.209.189-.512.201-.745.074-1.052-.872-1.238-1.276-1.814-2.106-1.734 1.767-2.962 2.297-5.209 2.297-2.66 0-4.731-1.641-4.731-4.925 0-2.565 1.391-4.309 3.37-5.164 1.715-.754 4.11-.891 5.942-1.095v-.41c0-.753.06-1.642-.383-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.549.582l-3.061-.333c-.259-.056-.548-.266-.472-.66C5.97.629 9.055-.02 11.801 0c1.403 0 3.236.373 4.341 1.435 1.405 1.312 1.271 3.063 1.271 4.971v4.5c0 1.353.561 1.948 1.089 2.678.186.261.228.573-.01.767l-1.348 1.444zm1.326 2.872C16.978 22.513 13.897 24 11.057 24 7.228 24 3.771 22.614 1.186 20.222c-.199-.181-.022-.429.219-.288 2.792 1.626 6.241 2.604 9.806 2.604 2.404 0 5.047-.499 7.479-1.529.367-.158.674.241.78.668zm.872-1.477c-.272-.349-1.803-.165-2.491-.083-.208.025-.24-.157-.053-.288 1.22-.857 3.222-.61 3.453-.322.231.287-.061 2.283-1.207 3.234-.176.148-.344.069-.266-.124.258-.641.834-2.071.564-2.417z"/></svg>
+            <span>Amazon Music</span>
           </a>
-          <a href="#" class="platform-btn youtube" title="YouTube Music">
+          <a href="" class="platform-btn youtube" title="YouTube Music">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg>
             <span>YouTube Music</span>
           </a>
-          <a href="#" class="platform-btn tidal" title="Tidal">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg>
-            <span>Tidal</span>
+          <a href="" class="platform-btn netease" title="NetEase Cloud Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.536 13.535a4.538 4.538 0 01-4.536 4.535 4.538 4.538 0 01-4.536-4.535A4.538 4.538 0 0112 9a4.538 4.538 0 014.536 4.535zm-4.536-2.98a2.98 2.98 0 100 5.96 2.98 2.98 0 000-5.96zm0 1.49a1.49 1.49 0 110 2.98 1.49 1.49 0 010-2.98zm5.967-4.476l-1.054 1.054A6.517 6.517 0 0112 6.981a6.523 6.523 0 00-6.518 6.519h-1.49A8.016 8.016 0 0112 5.49a8.01 8.01 0 015.655 2.343l.016.016-.7.72z"/></svg>
+            <span>NetEase Cloud</span>
           </a>
-          <a href="#" class="platform-btn bandcamp" title="Bandcamp">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
-            <span>Bandcamp</span>
+          <a href="test.html" class="platform-btn yandex" title="Yandex Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.32 0h-2.73C6.3 0 3.37 2.67 3.37 7.03c0 2.83 1.33 4.75 3.72 5.78L3 24h3.03l3.88-10.77h1.53V24h2.88V0zm-2.88 10.87V2.35c2.6.01 3.98 1.34 3.98 4.18 0 2.92-1.5 4.34-3.98 4.34z"/></svg>
+            <span>Yandex Music</span>
+          </a>
+          <a href="" class="platform-btn deezer" title="Deezer">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg>
+            <span>Deezer</span>
+          </a>
+          <a href="" class="platform-btn pandora" title="Pandora">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 0v24h7.266c4.817 0 9.096-2.694 9.096-8.202 0-3.536-1.925-5.644-4.405-6.617L17.367 0H12.26L7.266 8.952V0H0zm7.266 12.356h.386c2.281 0 3.958 1.119 3.958 3.442 0 2.323-1.677 3.46-3.958 3.46h-.386v-6.902z"/></svg>
+            <span>Pandora</span>
+          </a>
+          <a href="" class="platform-btn jiosaavn" title="JioSaavn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.75 17.25h-1.5v-6.75h1.5v6.75zm0-8.25h-1.5V7.5h1.5V9z"/></svg>
+            <span>JioSaavn</span>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Album 2 -->
+    <!-- ─── ALBUM 2 : SAMSARA.EXE ─── -->
     <div class="album-row">
       <div class="album-cover">
-        <div class="album-cover-inner" data-lb-src="images/DHARMA.EXEa-02.jpg" data-lb-label="SAMSARA.EXE // 2024">
+        <div class="album-cover-inner" data-lb-src="images/DHARMA.EXEa-02.jpg" data-lb-label="SAMSARA.EXE // 2026">
           <img src="images/DHARMA.EXEa-02.jpg" alt="SAMSARA.EXE" />
         </div>
       </div>
       <div class="album-info">
-        <div class="album-meta">2024 &nbsp;·&nbsp; EP</div>
+        <div class="album-meta">2026 &nbsp;·&nbsp; EP</div>
         <div class="album-title">SAMSARA.EXE</div>
-        <div class="album-tracks">5 tracks &nbsp;·&nbsp; 22 min</div>
+        <div class="album-tracks">4 tracks &nbsp;·&nbsp; 26 min</div>
         <div class="platform-links">
-          <a href="#" class="platform-btn spotify" title="Spotify">
+          <a href="test.html" class="platform-btn spotify" title="Spotify">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
             <span>Spotify</span>
           </a>
-          <a href="#" class="platform-btn apple" title="Apple Music">
+          <a href="test.html" class="platform-btn tencent" title="Tencent Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 6.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5S14 10.828 14 10s.672-1.5 1.5-1.5zM8.5 8.5C9.328 8.5 10 9.172 10 10s-.672 1.5-1.5 1.5S7 10.828 7 10s.672-1.5 1.5-1.5zM12 18c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08C16.71 16.72 14.5 18 12 18z"/></svg>
+            <span>Tencent Music</span>
+          </a>
+          <a href="test.html" class="platform-btn apple" title="Apple Music">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg>
             <span>Apple Music</span>
           </a>
-          <a href="#" class="platform-btn deezer" title="Deezer">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg>
-            <span>Deezer</span>
+          <a href="test.html" class="platform-btn amazon" title="Amazon Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.699-3.182v.685zm3.186 7.705c-.209.189-.512.201-.745.074-1.052-.872-1.238-1.276-1.814-2.106-1.734 1.767-2.962 2.297-5.209 2.297-2.66 0-4.731-1.641-4.731-4.925 0-2.565 1.391-4.309 3.37-5.164 1.715-.754 4.11-.891 5.942-1.095v-.41c0-.753.06-1.642-.383-2.294-.385-.579-1.124-.82-1.775-.82-1.205 0-2.277.618-2.54 1.897-.054.285-.261.567-.549.582l-3.061-.333c-.259-.056-.548-.266-.472-.66C5.97.629 9.055-.02 11.801 0c1.403 0 3.236.373 4.341 1.435 1.405 1.312 1.271 3.063 1.271 4.971v4.5c0 1.353.561 1.948 1.089 2.678.186.261.228.573-.01.767l-1.348 1.444zm1.326 2.872C16.978 22.513 13.897 24 11.057 24 7.228 24 3.771 22.614 1.186 20.222c-.199-.181-.022-.429.219-.288 2.792 1.626 6.241 2.604 9.806 2.604 2.404 0 5.047-.499 7.479-1.529.367-.158.674.241.78.668zm.872-1.477c-.272-.349-1.803-.165-2.491-.083-.208.025-.24-.157-.053-.288 1.22-.857 3.222-.61 3.453-.322.231.287-.061 2.283-1.207 3.234-.176.148-.344.069-.266-.124.258-.641.834-2.071.564-2.417z"/></svg>
+            <span>Amazon Music</span>
           </a>
-          <a href="#" class="platform-btn youtube" title="YouTube Music">
+          <a href="test.html" class="platform-btn youtube" title="YouTube Music">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg>
             <span>YouTube Music</span>
-          </a>
-          <a href="#" class="platform-btn tidal" title="Tidal">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg>
-            <span>Tidal</span>
-          </a>
-          <a href="#" class="platform-btn bandcamp" title="Bandcamp">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
-            <span>Bandcamp</span>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Album 3 -->
+    <!-- ─── ALBUM 3 : VOID_MANTRA_v2 ─── -->
     <div class="album-row">
       <div class="album-cover">
-        <div class="album-cover-inner" data-lb-src="images/DHARMA.EXEa-03.jpg" data-lb-label="VOID_MANTRA_v2 // 2025">
+        <div class="album-cover-inner" data-lb-src="images/DHARMA.EXEa-03.jpg" data-lb-label="VOID_MANTRA_v2 // 2026">
           <img src="images/DHARMA.EXEa-03.jpg" alt="VOID_MANTRA_v2" />
         </div>
       </div>
       <div class="album-info">
-        <div class="album-meta">2025 &nbsp;·&nbsp; EP</div>
+        <div class="album-meta">2026 &nbsp;·&nbsp; FULL-LENGTH</div>
         <div class="album-title">VOID_MANTRA_v2</div>
-        <div class="album-tracks">6 tracks &nbsp;·&nbsp; 28 min</div>
+        <div class="album-tracks">12 tracks &nbsp;·&nbsp; 56 min</div>
         <div class="platform-links">
-          <a href="#" class="platform-btn spotify" title="Spotify">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-            <span>Spotify</span>
+          <a href="test.html" class="platform-btn tencent" title="Tencent Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 6.5c.828 0 1.5.672 1.5 1.5s-.672 1.5-1.5 1.5S14 10.828 14 10s.672-1.5 1.5-1.5zM8.5 8.5C9.328 8.5 10 9.172 10 10s-.672 1.5-1.5 1.5S7 10.828 7 10s.672-1.5 1.5-1.5zM12 18c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08C16.71 16.72 14.5 18 12 18z"/></svg>
+            <span>Tencent Music</span>
           </a>
-          <a href="#" class="platform-btn apple" title="Apple Music">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg>
-            <span>Apple Music</span>
-          </a>
-          <a href="#" class="platform-btn deezer" title="Deezer">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg>
-            <span>Deezer</span>
-          </a>
-          <a href="#" class="platform-btn youtube" title="YouTube Music">
+          <a href="test.html" class="platform-btn youtube" title="YouTube Music">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg>
             <span>YouTube Music</span>
-          </a>
-          <a href="#" class="platform-btn tidal" title="Tidal">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg>
-            <span>Tidal</span>
-          </a>
-          <a href="#" class="platform-btn bandcamp" title="Bandcamp">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
-            <span>Bandcamp</span>
           </a>
         </div>
       </div>
     </div>
 
-    <!-- Album 4 -->
+    <!-- ─── ALBUM 4 : IRON DHARMA ─── -->
     <div class="album-row">
       <div class="album-cover">
         <div class="album-cover-inner" data-lb-src="images/DHARMA.EXEa-04.jpg" data-lb-label="IRON DHARMA // 2026">
@@ -1440,31 +1434,15 @@
       <div class="album-info">
         <div class="album-meta">2026 &nbsp;·&nbsp; FULL-LENGTH</div>
         <div class="album-title">IRON DHARMA</div>
-        <div class="album-tracks">11 tracks &nbsp;·&nbsp; 58 min</div>
+        <div class="album-tracks">13 tracks &nbsp;·&nbsp; 62 min</div>
         <div class="platform-links">
-          <a href="#" class="platform-btn spotify" title="Spotify">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/></svg>
-            <span>Spotify</span>
-          </a>
-          <a href="#" class="platform-btn apple" title="Apple Music">
+          <a href="test.html" class="platform-btn apple" title="Apple Music">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.994 6.124a9.23 9.23 0 00-.24-2.19c-.317-1.31-1.064-2.31-2.19-3.04a5.022 5.022 0 00-1.72-.64c-.64-.13-1.29-.17-1.94-.17H6.196c-.65 0-1.3.04-1.94.17a5.022 5.022 0 00-1.72.64C1.41 1.624.664 2.624.347 3.934a9.23 9.23 0 00-.24 2.19C.067 6.704.057 7.074.057 7.444v9.12c0 .37.01.74.05 1.12a9.23 9.23 0 00.24 2.19c.317 1.31 1.064 2.31 2.19 3.04a5.022 5.022 0 001.72.64c.64.13 1.29.17 1.94.17h11.61c.65 0 1.3-.04 1.94-.17a5.022 5.022 0 001.72-.64c1.126-.73 1.873-1.73 2.19-3.04a9.23 9.23 0 00.24-2.19c.04-.38.05-.75.05-1.12V7.444c0-.37-.01-.74-.05-1.32zM15.5 12.5l-4.5 2.6V9.9l4.5 2.6z"/></svg>
             <span>Apple Music</span>
           </a>
-          <a href="#" class="platform-btn deezer" title="Deezer">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.81 4.16v1.73H24V4.16h-5.19zM6.27 8.39v1.73h5.19V8.39H6.27zm6.27 0v1.73h5.19V8.39h-5.19zm6.27 0v1.73H24V8.39h-5.19zM0 12.61v1.73h5.19V12.61H0zm6.27 0v1.73h5.19V12.61H6.27zm6.27 0v1.73h5.19V12.61h-5.19zm6.27 0v1.73H24V12.61h-5.19zM0 16.84v1.73h5.19V16.84H0zm6.27 0v1.73h5.19V16.84H6.27zm6.27 0v1.73h5.19V16.84h-5.19zm6.27 0v1.73H24V16.84h-5.19z"/></svg>
-            <span>Deezer</span>
-          </a>
-          <a href="#" class="platform-btn youtube" title="YouTube Music">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.864 15.204V8.796L16.2 12l-6.336 3.204z"/></svg>
-            <span>YouTube Music</span>
-          </a>
-          <a href="#" class="platform-btn tidal" title="Tidal">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996l4.004 4.004 4.004-4.004 4.004 4.004 4.004-4.004L20.02 12l4.004-4.004-4.004-4.004-4.004 4.004-4.004-4.004zM8.008 16.008l4.004-4.004 4.004 4.004-4.004 4.004-4.004-4.004z"/></svg>
-            <span>Tidal</span>
-          </a>
-          <a href="#" class="platform-btn bandcamp" title="Bandcamp">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M0 18.75l7.437-13.5H24l-7.438 13.5z"/></svg>
-            <span>Bandcamp</span>
+          <a href="test.html" class="platform-btn netease" title="NetEase Cloud Music">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.536 13.535a4.538 4.538 0 01-4.536 4.535 4.538 4.538 0 01-4.536-4.535A4.538 4.538 0 0112 9a4.538 4.538 0 014.536 4.535zm-4.536-2.98a2.98 2.98 0 100 5.96 2.98 2.98 0 000-5.96zm0 1.49a1.49 1.49 0 110 2.98 1.49 1.49 0 010-2.98zm5.967-4.476l-1.054 1.054A6.517 6.517 0 0112 6.981a6.523 6.523 0 00-6.518 6.519h-1.49A8.016 8.016 0 0112 5.49a8.01 8.01 0 015.655 2.343l.016.016-.7.72z"/></svg>
+            <span>NetEase Cloud</span>
           </a>
         </div>
       </div>
@@ -1512,10 +1490,9 @@
   <script>
     // ─── LEARN MORE + TYPEWRITER ───
     (function() {
-      var btn        = document.getElementById('learnMoreBtn');
-      var panel      = document.getElementById('bioExpanded');
-      var inlineSpan = document.getElementById('learnMoreInline');
-      var typed      = false;
+      var btn    = document.getElementById('learnMoreBtn');
+      var panel  = document.getElementById('bioExpanded');
+      var typed  = false;
 
       function getTextNodes(el) {
         var result = [];
@@ -1527,12 +1504,7 @@
         return result;
       }
 
-      // Snapshot + erase inline span text at load (no flash)
-      var inlineNodes     = getTextNodes(inlineSpan);
-      var inlineOriginals = inlineNodes.map(function(n) { return n.textContent; });
-      inlineNodes.forEach(function(n) { n.textContent = ''; });
-
-      // Snapshot + erase last paragraph
+      // Snapshot + erase all paragraphs inside bio-expanded-inner (except close button)
       var bodyEl        = panel.querySelector('.bio-expanded-inner');
       var bodyNodes     = getTextNodes(bodyEl);
       var bodyOriginals = bodyNodes.map(function(n) { return n.textContent; });
@@ -1581,14 +1553,9 @@
       }
 
       function runTypewriter() {
-        inlineSpan.classList.add('visible');
-
-        var inlineQueue = buildQueue(inlineNodes, inlineOriginals);
-        typeQueue(inlineQueue, inlineNodes[0], function() {
-          panel.classList.add('is-open');
-          var bodyQueue = buildQueue(bodyNodes, bodyOriginals);
-          typeQueue(bodyQueue, bodyNodes[0], null);
-        });
+        panel.classList.add('is-open');
+        var bodyQueue = buildQueue(bodyNodes, bodyOriginals);
+        if (bodyNodes.length) typeQueue(bodyQueue, bodyNodes[0], null);
       }
 
       btn.addEventListener('click', function() {
@@ -1602,14 +1569,8 @@
       // ─── CLOSE / TERMINATE ───
       var closeBtn = document.getElementById('bioCloseBtn');
       closeBtn.addEventListener('click', function() {
-        // Collapse panel
         panel.classList.remove('is-open');
-        // Hide inline span
-        inlineSpan.classList.remove('visible');
-        // Erase text
-        inlineNodes.forEach(function(n) { n.textContent = ''; });
         bodyNodes.forEach(function(n) { n.textContent = ''; });
-        // Re-show learn_more button after transition ends
         typed = false;
         setTimeout(function() { btn.classList.remove('hidden'); }, 560);
       });
@@ -1650,13 +1611,18 @@
   </script>
   <script>
     // ─── GALLERY DATA ───
-    // Remplacer les src par les vraies images. Format: { src, label }
+    // ════════════════════════════════════════════════════════
+    // TEMPLATE GALLERY — liste des photos du bandeau
+    // Fournir pour chaque photo : { src: 'NOM_DU_FICHIER', label: 'LABEL_AFFICHÉ' }
+    // Le nombre d'entrées détermine automatiquement le nombre de vignettes et le compteur.
+    // Exemple de label : 'IMG_001 // LIVE_FEED' ou 'IMG_002 // NOM_ALBUM'
+    // ════════════════════════════════════════════════════════
     const GALLERY_IMAGES = [
-      { src: 'images/DHARMA.EXE01.jpg', label: 'IMG_001 // LIVE_FEED' },
-      { src: 'images/DHARMA.EXEa-01.jpg', label: 'IMG_002 // DISSOLUTION_PROTOCOL' },
+      { src: 'images/DHARMA.EXE01.jpg', label: 'IMG_001 // MAIN' },
+      { src: 'images/DHARMA.EXEa-01.jpg', label: 'IMG_002 // DISSOLUTION PROTOCOL' },
       { src: 'images/DHARMA.EXEa-02.jpg', label: 'IMG_003 // SAMSARA.EXE' },
       { src: 'images/DHARMA.EXEa-03.jpg', label: 'IMG_004 // VOID_MANTRA_v2' },
-      { src: 'images/DHARMA.EXEa-04.jpg', label: 'IMG_005 // IRON_DHARMA' },
+      { src: 'images/DHARMA.EXEa-04.jpg', label: 'IMG_005 // IRON DHARMA' },
     ];
 
     // ─── PLACEHOLDERS (utilisés si les images réelles ne sont pas disponibles) ───
@@ -1951,6 +1917,61 @@
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && albumLightbox.classList.contains('active')) closeAlbumLightbox();
     });
+  </script>
+
+  <script>
+    // ─── AUTO-CALCUL : RELEASES & DEPLOYED ───
+    // Compte les album-row dans la discographie et trouve l'année minimale
+    (function() {
+      var rows = document.querySelectorAll('.discography .album-row');
+      var count = rows.length;
+
+      // Extraire les années depuis .album-meta (format "AAAA · TYPE")
+      var years = [];
+      rows.forEach(function(row) {
+        var meta = row.querySelector('.album-meta');
+        if (meta) {
+          var match = meta.textContent.match(/\d{4}/);
+          if (match) years.push(parseInt(match[0], 10));
+        }
+      });
+
+      var deployedYear = years.length ? Math.min.apply(null, years) : '—';
+
+      // Mettre à jour les stats sous la bio
+      var statReleases = document.getElementById('stat-releases');
+      var statDeployed = document.getElementById('stat-deployed');
+      if (statReleases) statReleases.textContent = count;
+      if (statDeployed) statDeployed.textContent = deployedYear;
+
+      // Mettre à jour le compteur du bandeau discographie
+      var discoCount = document.getElementById('discography-count');
+      if (discoCount) discoCount.textContent = count + ' RELEASE' + (count > 1 ? 'S' : '');
+    })();
+  </script>
+  <script>
+    // ─── MASQUER LES BOUTONS DE PLATEFORME SANS LIEN + COMPTAGE UNIQUE ───
+    // 1. Masquer les boutons sans lien
+    document.querySelectorAll('.platform-btn').forEach(function(btn) {
+      var href = btn.getAttribute('href');
+      if (!href || href.trim() === '' || href.trim() === '#') {
+        btn.style.display = 'none';
+      }
+    });
+
+    // 2. Compter les plateformes uniques (1 par classe de plateforme, peu importe combien d'albums)
+    var platformClasses = ['spotify','tencent','apple','amazon','youtube','netease','yandex','deezer','pandora','jiosaavn'];
+    var uniqueCount = 0;
+    platformClasses.forEach(function(cls) {
+      // Au moins un bouton visible avec cette classe = cette plateforme est active
+      var visible = Array.from(document.querySelectorAll('.platform-btn.' + cls)).some(function(btn) {
+        return btn.style.display !== 'none';
+      });
+      if (visible) uniqueCount++;
+    });
+
+    var statPlatforms = document.getElementById('stat-platforms');
+    if (statPlatforms) statPlatforms.textContent = uniqueCount;
   </script>
 </body>
 </html>
